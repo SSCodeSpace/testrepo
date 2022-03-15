@@ -6,6 +6,7 @@ import "../../common/header/Form.css";
 import "./Registration.css";
 
 export default function RegistrationForm(props) {
+  //initialize variables
   const [reqEmail, setReqEmail] = React.useState("dispNone");
   const [reqFirstname, setReqFirstName] = React.useState("dispNone");
   const [reqLastname, setReqLastName] = React.useState("dispNone");
@@ -24,12 +25,13 @@ export default function RegistrationForm(props) {
     phoneNumber: "",
   });
 
+  //handle input change
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setRegistrationDetails((state) => ({ ...state, [name]: value }));
   };
-
+  //validate registration details
   const validateRegisterForm = () => {
     registrationDetails.email === ""
       ? setReqEmail("dispBlock")
@@ -60,6 +62,7 @@ export default function RegistrationForm(props) {
     }
   };
 
+  //handle submit action
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -71,6 +74,7 @@ export default function RegistrationForm(props) {
     }
   };
 
+  //call registration api
   async function registerUser() {
     const userDetails = {
       first_name: registrationDetails.firstName,
@@ -98,7 +102,7 @@ export default function RegistrationForm(props) {
         }, 3000);
       }
       if (rawResponse.ok) {
-        console.log("registration response is " + JSON.stringify(response));
+        
       } else {
         const error = new Error();
         error.message =
