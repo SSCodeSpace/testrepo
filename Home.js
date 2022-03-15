@@ -10,7 +10,6 @@ export default function Home(props) {
 
   return (
     <div>
-        {console.log("base URL is "+props.baseUrl)}
       <Header {...props} />
       <div className="upcoming-movies-header">Upcoming Movies</div>
       <UpcomingMovies {...props} />
