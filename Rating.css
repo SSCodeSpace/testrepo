@@ -1,0 +1,7 @@
+.rating-star {
+    color: black;
+    font-size: 25px;
+}
+.ratins-star:hover{
+    color: yellow;
+}
