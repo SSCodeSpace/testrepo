@@ -9,18 +9,21 @@ import { useEffect } from "react";
 
 import Rating from "../../common/Rating";
 
+//set variables for the youtube video fetching
 const opts = {
   height: "390",
   width: "850",
   playerVars: {
     autoplay: 1,
   },
+  
 };
 const _onReady = (e) => {
   e.target.pauseVideo();
 };
 
 export default function Details(props) {
+  //initialize variable to store movie details
   const [movieDetails, setMovieDetails] = React.useState({
     artists: [],
     censor_board_rating: "",
@@ -37,8 +40,7 @@ export default function Details(props) {
     wiki_url: "",
   });
 
-  console.log("base url in details page is " + props.baseUrl);
-
+  //call movie details api
   async function loadMovieDetails() {
     const rawResponse = await fetch(
       props.baseUrl + "movies/" + props.match.params.id,
@@ -119,7 +121,7 @@ export default function Details(props) {
               Rate this movie:
               <Rating
                 numberOfStars="5"
-                rating={movieDetails.rating}
+                rating={0}
                 onClick={ratingClickHandler}
               />
             </Typography>
