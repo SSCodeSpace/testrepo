@@ -1,0 +1,34 @@
+.released-movies-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+@media only screen and (max-width: 900px) {
+    .released-movies-container {
+        /* it place the items in vertical direction */
+      flex-direction: column;
+    }
+}
+
+.released-movies{
+    flex-shrink: 0;
+    flex-basis: 76%;
+    margin:16px;
+}
+
+.movies-filter{
+    width: 280px;
+    margin: auto;
+    text-align: left;
+}
+
+.flex-container{
+    display:flex;
+}
+
+@media only screen and (max-width: 900px) {
+    .flex-container{
+        /* it place the items in vertical direction */
+      flex-direction: column;
+    }
+}
