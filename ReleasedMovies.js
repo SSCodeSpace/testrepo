@@ -13,7 +13,7 @@ import { MenuItem, ListItemText, Select, Checkbox } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
 
-
+//styling props
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -54,7 +54,7 @@ formControl: {
 function ReleasedMovies(props) {
 
   const { classes } = props;
-
+  //initialize filter values
   const [filters, setFilters] = useState({
     movieName: "",
     genreSelector: {},
@@ -68,12 +68,14 @@ function ReleasedMovies(props) {
   const [artistList, setArtistList] = React.useState([]);
   const [releasedMoviesListCopy,setReleasedMoviesListCopy]=useState([]);
 
+  //fetch genre details
   async function loadGenreDetails() {
     const rawResponse = await fetch(props.baseUrl + "/genres");
     const list = await rawResponse.json();
     setGenresList(list.genres);
   }
 
+  //fetch artist details
   async function loadArtistDetails() {
     const rawResponse = await fetch(props.baseUrl + "/artists");
     const list = await rawResponse.json();
@@ -86,6 +88,7 @@ function ReleasedMovies(props) {
   }
 
   const [releasedMoviesList, setReleasedMoviesList] = useState([]);
+  //fetch releasedMovies list
   async function loadReleasedMovies() {
     const rawResponse = await fetch(
       props.baseUrl + "/movies?" + new URLSearchParams({ status: "RELEASED" })
@@ -103,12 +106,14 @@ function ReleasedMovies(props) {
     loadReleasedMovies();
   }, []);
 
+  //handle input change
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setFilters((values) => ({ ...values, [name]: value }));
   };
 
+  //handle genre change
   const handleGenreChange = (e) => {
     const {
       target: { value },
@@ -119,6 +124,7 @@ function ReleasedMovies(props) {
     );
   };
 
+  //handle artist change
   const handleArtistChange = (e) => {
     const {
       target: { value },
@@ -130,6 +136,7 @@ function ReleasedMovies(props) {
   
   };
 
+  //handle filter action
   const applyFilters = (event) => {
     setReleasedMoviesList(releasedMoviesListCopy);
     filters.artistSelector=artists;
@@ -147,7 +154,7 @@ function ReleasedMovies(props) {
         }
       }
       if (filters.genreSelector && filters.genreSelector.length > 0) {
-        movie.genres.map((genre) => {
+        movie.genres.forEach((genre) => {
           if (filters.genreSelector.indexOf(genre) > -1) {
             dataFilter.genreStatus = true;
           }
@@ -158,7 +165,7 @@ function ReleasedMovies(props) {
       }
       if (filters.artistSelector && filters.artistSelector.length > 0) {
         movie.artists &&
-          movie.artists.map((artist) => {
+          movie.artists.forEach((artist) => {
             const name = artist.first_name + " " + artist.last_name;
             if (filters.artistSelector.indexOf(name) > -1) {
               dataFilter.artistStatus = true;
@@ -175,7 +182,6 @@ function ReleasedMovies(props) {
       if (filters.releaseStartDate) {
         const startDate = new Date(filters.releaseStartDate);
         const filmDate = new Date(movie.release_date);
-        console.log("movie release and end dates are "+startDate+" to "+endDate)
         if (filmDate >= startDate && filmDate <= endDate) {
           dataFilter.releaseDateStatus = true;
         } else {
@@ -194,11 +200,10 @@ function ReleasedMovies(props) {
     setReleasedMoviesList(filteredMoviesList);
   };
 
-
-
   function dateString(string) {
     return new Date(string).toDateString();
   }
+  
   return (
     <div className="flex-container">
       <div className="released-movies">
@@ -286,7 +291,6 @@ function ReleasedMovies(props) {
                   onChange={handleArtistChange}
                   name="artistSelector"
                 >
-                  {console.log("artistList length is" + artistList.length)}
                   {artistList.map((artist) => (
                     <MenuItem key={artist.id} value={artist.name}>
                       <Checkbox checked={artists.indexOf(artist.name) > -1} />
