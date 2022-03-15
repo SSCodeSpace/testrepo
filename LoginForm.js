@@ -69,7 +69,6 @@ export default function LoginForm(props) {
         );
 
         props.saveSessionDetails(window.sessionStorage.getItem("access-token"));
-        console.log("Login successful");
         props.closeAuthFun();
       }
     } catch (e) {
