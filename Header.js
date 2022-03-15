@@ -4,7 +4,6 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import { Button } from "@material-ui/core";
 import BasicTabs from "../header/TabPanel";
-import ReactModal from "react-modal";
 import Modal from "react-modal";
 
 export default function Header(props) {
@@ -73,6 +72,7 @@ export default function Header(props) {
       <div className="app-header">
         <img src={logo} className="app-logo" alt="Movie logo" />
         <div className="user-auth-actions">
+        {bookShowButton}
           {session ? (
             <Button
               variant="contained"
@@ -93,7 +93,7 @@ export default function Header(props) {
             </Button>
           )}
 
-          {bookShowButton}
+         
         </div>
       </div>
 
