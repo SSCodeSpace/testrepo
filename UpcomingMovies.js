@@ -5,10 +5,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-
-
-
-  
+//styling props
 const styles = theme => ({
   root: {
    
@@ -31,8 +28,10 @@ const styles = theme => ({
 
 function UpcomingMovies(props) {
 
+  //initialize the moviesList
   const [moviesList,setMoviesList]=useState([]);
 
+  //fetch upcomingMovies list
   async function loadUpComingMovies() {
     const rawResponse = await fetch(props.baseUrl + "/movies?" + new URLSearchParams({status: 'PUBLISHED'}));
     const UpcomingMovies = await rawResponse.json();
@@ -42,14 +41,13 @@ function UpcomingMovies(props) {
 
 useEffect(() => {
   loadUpComingMovies();
- 
 }, []);
 
   const { classes } = props;
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={'250'} style={{ flexWrap: "nowrap", transform: 'translateZ(0)' }} cols={6}>
+      <GridList cellHeight={250} style={{ flexWrap: "nowrap", transform: 'translateZ(0)' }} cols={6}>
         {moviesList.map(movie => (
           <GridListTile key={movie.id} style={{height:'250px'}}>
             <img src={movie.poster_url} alt={movie.title}/>
